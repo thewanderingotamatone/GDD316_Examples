@@ -496,6 +496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sr.Sneak
       objectReference: {fileID: 0}
+    - target: {fileID: 2042953256698253358, guid: fa35040389f9e164db56d4b511eb154a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.238
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: fa35040389f9e164db56d4b511eb154a, type: 3}
       propertyPath: m_Controller
       value: 
