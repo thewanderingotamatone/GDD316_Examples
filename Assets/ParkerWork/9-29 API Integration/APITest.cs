@@ -4,7 +4,7 @@ using System.Collections;
 
 public class APITest : MonoBehaviour
 {
-    const string API_FACTS = "https://uselessfacts.jsph.pl//api/v2/facts/random";
+    const string API_FACTS = "https://meowfacts.herokuapp.com/";
 
     void Start()
     {
