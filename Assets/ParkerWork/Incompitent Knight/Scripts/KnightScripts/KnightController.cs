@@ -57,7 +57,5 @@ public class KnightController : MonoBehaviour
     void UpdateAnimations()
     {
         animator.SetFloat("MoveX", moveX);
-        animator.SetBool("IsGrounded", controller.isGrounded);
-        animator.SetFloat("VerticalVelocity", verticalVelocity);
     }
 }
