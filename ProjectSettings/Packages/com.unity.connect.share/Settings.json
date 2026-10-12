@@ -19,7 +19,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"D:/QU/2026/QU.Fall2026/GDD316 Advanced Topics in Game Dev/GithubRepo/GDD316_Examples/WebGL Builds;;;;;;;;;\"}"
+                "value": "{\"m_Value\":\"D:/QU/2026/QU.Fall2026/GDD316 Advanced Topics in Game Dev/Games/KnightGame V0.2;D:/QU/2026/QU.Fall2026/GDD316 Advanced Topics in Game Dev/GithubRepo/GDD316_Examples/WebGL Builds;;;;;;;;\"}"
             }
         ]
     }

@@ -6,8 +6,8 @@ public class EnemyFlash : MonoBehaviour
 {
     public Renderer rend;                  // the enemy's Mesh Renderer
     public Color flashColor = Color.red;
-    public float fadeInTime = 0.05f;       // original -> red (quick)
-    public float fadeOutTime = 0.25f;      // red -> original (slower)
+    public float fadeInTime = 0.05f;       // original tex -> red
+    public float fadeOutTime = 0.25f;      // red -> original tex
 
     private Health health;
     private Material mat;
@@ -23,21 +23,26 @@ public class EnemyFlash : MonoBehaviour
         originalColor = mat.GetColor(colorProperty);
     }
 
-    void OnEnable()  => health.OnDamaged += HandleDamaged;
+    void OnEnable()
+    {
+        health.OnDamaged += HandleDamaged;
+        mat.SetColor(colorProperty, originalColor);   // clean slate on every spawn
+    }
+
     void OnDisable() => health.OnDamaged -= HandleDamaged;
 
     void HandleDamaged(int current, int amount)
     {
-        StopAllCoroutines();   // restart the flash if hit again mid-flash
+        StopAllCoroutines();   // restart the flash if hit again mid-flash so it looks kewl
         StartCoroutine(Flash());
     }
 
     IEnumerator Flash()
     {
-        // Start from whatever color we're at right now, so a re-hit mid-fade doesn't pop
+        // start from whatever color it's at rn, so a re-hit mid-fade doesn't pop
         Color startColor = mat.GetColor(colorProperty);
 
-        // Fade in: current -> red
+        // Fade in: original tex -> red
         for (float t = 0f; t < fadeInTime; t += Time.deltaTime)
         {
             mat.SetColor(colorProperty, Color.Lerp(startColor, flashColor, t / fadeInTime));
@@ -45,7 +50,7 @@ public class EnemyFlash : MonoBehaviour
         }
         mat.SetColor(colorProperty, flashColor);
 
-        // Fade out: red -> original
+        // Fade out: red -> original tex
         for (float t = 0f; t < fadeOutTime; t += Time.deltaTime)
         {
             mat.SetColor(colorProperty, Color.Lerp(flashColor, originalColor, t / fadeOutTime));

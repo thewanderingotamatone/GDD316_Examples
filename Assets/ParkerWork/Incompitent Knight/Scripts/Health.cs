@@ -15,17 +15,23 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (dead) return;   // new: ignore hits after death
+        if (dead) return;   // new: ignore hits after death (since part of object pool)
 
         Current = Mathf.Max(0, Current - amount);   // new: HP never goes below 0
         Debug.Log($"{name} took {amount} damage. HP: {Current}/{maxHealth}");
 
-        OnDamaged?.Invoke(Current, amount);
+        OnDamaged?.Invoke(Current, amount); // announce damage -----------------------
 
         if (Current == 0)
         {
             dead = true;
-            OnDied?.Invoke();   // new: announce death
+            OnDied?.Invoke();   // announce death ------------------------------------
         }
+    }
+
+    public void ResetHealth()
+    {
+        Current = maxHealth;
+        dead = false;
     }
 }

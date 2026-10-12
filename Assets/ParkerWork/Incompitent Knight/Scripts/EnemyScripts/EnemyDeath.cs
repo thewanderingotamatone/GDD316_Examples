@@ -1,9 +1,15 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 [RequireComponent(typeof(Health))]
 public class EnemyDeath : MonoBehaviour
 {
-    public float destroyDelay = 0.3f;   // lets the red flash finish before the enemy vanishes
+    public float returnDelay = 0.3f;   // lets red flash finish
+
+    // spawner assigns this.
+    // if null, fall back to Destroy.
+    [NonSerialized] public Action<GameObject> returnToPool;
 
     private Health health;
 
@@ -12,8 +18,13 @@ public class EnemyDeath : MonoBehaviour
     void OnEnable()  => health.OnDied += HandleDied;
     void OnDisable() => health.OnDied -= HandleDied;
 
-    void HandleDied()
+    void HandleDied() => StartCoroutine(ReturnAfterDelay());
+
+    IEnumerator ReturnAfterDelay()
     {
-        Destroy(gameObject, destroyDelay);
+        yield return new WaitForSeconds(returnDelay);
+
+        if (returnToPool != null) returnToPool(gameObject);
+        else Destroy(gameObject);
     }
 }

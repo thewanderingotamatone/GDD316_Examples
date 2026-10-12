@@ -89,8 +89,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFlash
   rend: {fileID: 6088415752941757778}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
-  fadeInTime: 0.05
-  fadeOutTime: 0.25
+  fadeInTime: 0.1
+  fadeOutTime: 0.1
 --- !u!114 &8605490752274901277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84c289244957494f883f13bc0d49b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeath
-  destroyDelay: 0
+  returnDelay: 0
 --- !u!114 &589029555595515227
 MonoBehaviour:
   m_ObjectHideFlags: 0

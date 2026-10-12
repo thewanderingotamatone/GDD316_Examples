@@ -7,11 +7,11 @@ public class SwordDamage : MonoBehaviour
     public float hitCooldown = 0.5f;     // time before the same enemy can be hit again
 
     [Header("Swing Speed")]
-    public float minSwingSpeed = 3f;     // units/second the sword must be moving to register a hit
-    public Transform speedPoint;         // optional: measure speed at the blade tip instead of the sword's pivot
-    public bool logSpeed = false;        // tick to see speed values in the Console
+    public float minSwingSpeed = 3f;     // units/second the sword must be moving to register a hit (buggy cus sword can pass thru objects)
+    public Transform speedPoint;         // measure speed at the blade tip instead of the sword's pivot (theres gotta be a better way to do this)
+    public bool logSpeed = false;        // tick to see speed values in console menu (helped me "balance" this) (lowk could use this # for "damage" instead of swing speed)
 
-    [SerializeField] private float currentSwingSpeed;   // visible in the Inspector while playing
+    [SerializeField] private float currentSwingSpeed;   // visible in the Inspector while playing (erm waiter look up please)
 
     private Vector3 lastPos;
     private Dictionary<Health, float> lastHitTime = new Dictionary<Health, float>();
@@ -20,7 +20,7 @@ public class SwordDamage : MonoBehaviour
 
     void Start() => lastPos = Tracked.position;
 
-    // Measure speed once per physics step, the same rate trigger events fire at
+    // Measure speed once per physics step (the same rate trigger events fire at for collision junk)
     void FixedUpdate()
     {
         Vector3 pos = Tracked.position;
@@ -36,11 +36,9 @@ public class SwordDamage : MonoBehaviour
         Health health = other.GetComponentInParent<Health>();
         if (health == null) return;
 
-        // Too slow? Skip. This runs BEFORE the cooldown is stamped,
-        // so a slow touch never "uses up" the cooldown.
+        // swingspeed doesn't meet critera: do nothing
         if (currentSwingSpeed < minSwingSpeed)
         {
-            if (logSpeed) Debug.Log($"Too slow on {health.name}: {currentSwingSpeed:F1} < {minSwingSpeed}");
             return;
         }
 
@@ -49,7 +47,6 @@ public class SwordDamage : MonoBehaviour
 
         lastHitTime[health] = Time.time;
 
-        Debug.Log($"Sword hit {health.name} at speed {currentSwingSpeed:F1}");
         health.TakeDamage(damage);
     }
 }
