@@ -15,8 +15,8 @@ public class EnemyDeath : MonoBehaviour
 
     void Awake() => health = GetComponent<Health>();
 
-    void OnEnable()  => health.OnDied += HandleDied;
-    void OnDisable() => health.OnDied -= HandleDied;
+    void OnEnable()  => health.OnDied += HandleDied; // subcribes
+    void OnDisable() => health.OnDied -= HandleDied; // unsubscribes
 
     void HandleDied() => StartCoroutine(ReturnAfterDelay());
 
